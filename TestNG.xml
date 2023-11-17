@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SuiteName" verbose="2" configfailurepolicy="continue">
+
+    <listeners>
+        <listener class-name="ReportsTestNg.Listeners">
+        </listener>
+    </listeners>
+    <test name="TetingEcommerceFunctionalites">
+        <classes>
+
+
+            <class name="TestCases.LogIn"/>
+            <class name="TestCases.AddressPage"/>
+            <class name="TestCases.AddProductsToWishList"/>
+            <class name="TestCases.AddProductsToCart"/>
+            <class name="TestCases.ProductsCheckout"/>
+
+        </classes>
+
+    </test>
+
+
+</suite>
