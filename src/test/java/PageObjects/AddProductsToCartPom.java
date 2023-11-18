@@ -132,7 +132,8 @@ public class AddProductsToCartPom {
 // Execute JavaScript to scroll to the top of the page
         js.executeScript("window.scrollTo(0, 0);");
 
-        FUNS_wait.wait_For_visibilityOfElementLocated(msg);
+       // FUNS_wait.wait_For_visibilityOfElementLocated(msg);
+         DisplayMessages();
 
 
 

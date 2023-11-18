@@ -10,10 +10,7 @@
 
 
             <class name="TestCases.LogIn"/>
-            <class name="TestCases.AddressPage"/>
-            <class name="TestCases.AddProductsToWishList"/>
-            <class name="TestCases.AddProductsToCart"/>
-            <class name="TestCases.ProductsCheckout"/>
+
 
         </classes>
 

@@ -188,7 +188,8 @@ public class AddProductsToWhishlistPom {
 //    WebElement delete;
 
     public String deleteProduct(String uniqueProductIdentifier){
-        wishlistButton.click();
+        WebElement element=wait.wait_For_visibilityOfElementLocated(wishlist_ele);
+        element.click();
         WebElement specificProduct = driver.findElement(By.xpath("//img[@alt='" + uniqueProductIdentifier + "']/ancestor::div[contains(@class,'product-item')]"));
 
         // Hover over the product to reveal the 'Add to Wishlist' button
