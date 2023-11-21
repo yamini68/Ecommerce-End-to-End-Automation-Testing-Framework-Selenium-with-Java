@@ -137,7 +137,9 @@ public class AddProductsToWhishlistPom {
 
     public void verficationOfProducts(){
 
-        wishlistButton.click();
+
+        WebElement element=wait.wait_For_visibilityOfElementLocated(wishlist_ele);
+        element.click();
 
         boolean isVerified = verifyProductsAddedToWishlist(productNames);
         if (isVerified) {

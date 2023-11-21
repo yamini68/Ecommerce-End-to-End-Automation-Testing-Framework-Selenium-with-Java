@@ -1,10 +1,7 @@
 package PageObjects;
 
 import Utilites.WebDriverWaitImplementation;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -62,12 +59,12 @@ public class AddProductsToCartPom {
     List<String> productNames = Arrays.asList("Cassia Funnel Sweatshirt",
             "Phoebe Zipper Sweatshirt", "Daphne Full-Zip Hoodie");
 
-    public void addListOfProductsToCart() {
+    public void addListOfProductsToCart() throws InterruptedException {
         addProductsToCart(productNames);
     }
 
 
-    public void addProductsToCart(List<String> productIdentifiers) {
+    public void addProductsToCart(List<String> productIdentifiers) throws InterruptedException {
         for (String uniqueProductIdentifier : productIdentifiers) {
             // Use the previous method to add each product to the wishlist
             addSpecificProductToCart(uniqueProductIdentifier);
@@ -83,7 +80,7 @@ public class AddProductsToCartPom {
 
     @FindBy(xpath = "//form[@data-role='tocart-form']//button[@title='Add to Cart']")
     WebElement addToCartButton;
-    By addToCartButton_ele = By.xpath("//form[@data-role='tocart-form']//button[@title='Add to Cart']");
+    By addToCartButton_ele = By.xpath(".//button[contains(@title, 'Add to Cart')]");
     By sizeSelection = By.xpath("//div[@id='option-label-size-143-item-168']");
     @FindBy(xpath = "//div[@id='option-label-color-93-item-57']")
     WebElement colour;
@@ -102,45 +99,52 @@ public class AddProductsToCartPom {
     }
 
 
-    public void addSpecificProductToCart(String uniqueProductIdentifier) {
+
+    public void addSpecificProductToCart(String uniqueProductIdentifier) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Actions actions = new Actions(driver);
 
         // Locate the image element that represents the specific product
         WebElement specificProduct = driver.findElement(By.xpath("//img[@alt='" + uniqueProductIdentifier + "']//ancestor::div[contains(@class,'product-item-info')]"));
 
         // Hover over the product to reveal the 'Add to Cart' button
-        Actions actionBuilder = new Actions(driver);
-        actionBuilder.moveToElement(specificProduct).perform();
+        actions.moveToElement(specificProduct).perform();
 
-        // Locate the size and color options relative to the specific product
+        // Locate and click the size and color options
         WebElement sizeElement = specificProduct.findElement(By.xpath(".//div[contains(@class, 'swatch-attribute size')]//div[contains(@class, 'swatch-option')]"));
-        wait.until(ExpectedConditions.visibilityOf(sizeElement));
-        sizeElement.click(); // Click on the size option
-
+        wait.until(ExpectedConditions.visibilityOf(sizeElement)).click();
         WebElement colorElement = specificProduct.findElement(By.xpath(".//div[contains(@class, 'swatch-attribute color')]//div[contains(@class, 'swatch-option')]"));
-        wait.until(ExpectedConditions.visibilityOf(colorElement));
-        colorElement.click(); // Click on the color option
+        wait.until(ExpectedConditions.visibilityOf(colorElement)).click();
 
-        // Scroll to and click the 'Add to Cart' button
-        WebElement addToCartButton = specificProduct.findElement(By.xpath(".//button[contains(@title, 'Add to Cart')]"));
-        //((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToCartButton);
+        // Scroll to and attempt to click the 'Add to Cart' button
+//        By addToCartButtonLocator = By.xpath("//img[@alt='" + uniqueProductIdentifier + "']//ancestor::div[contains(@class,'product-item-info')]//button[contains(@title, 'Add to Cart')]");
+//        WebElement addToCartButton = driver.findElement(addToCartButtonLocator);
+//        js.executeScript("arguments[0].scrollIntoView(true);", addToCartButton);
+
+        WebElement addToCartButton = specificProduct.findElement(By.xpath(".//button[@title='Add to Cart']"));
+        js.executeScript("arguments[0].scrollIntoView(true);", addToCartButton);
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
-        addToCartButton.click();
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        try {
+            addToCartButton.click();
+        } catch (ElementClickInterceptedException e) {
+            System.out.println("Standard click failed, attempting JavaScript click.");
+            js.executeScript("arguments[0].click();", addToCartButton);
+        }
 
-// Execute JavaScript to scroll to the top of the page
+        // Scroll to the top of the page if needed
         js.executeScript("window.scrollTo(0, 0);");
 
-       // FUNS_wait.wait_For_visibilityOfElementLocated(msg);
-         DisplayMessages();
-
-
-
-
-
+        // Display any messages
+        DisplayMessages();
         // Additional waits or actions can be added here as needed
     }
+
+
+
+
+
 
     @FindBy(xpath = "//a[@class='action showcart']")
     WebElement showCart;
@@ -164,8 +168,10 @@ public class AddProductsToCartPom {
         js.executeScript("window.scrollTo(0, 0);");
 
 // Now you can interact with the cart icon or any other elements at the top of the page
-        WebElement cartIcon = driver.findElement(By.xpath("//a[@class='action showcart']")); // Replace with actual XPath
-        cartIcon.click();
+        WebElement cartIcon = driver.findElement(By.xpath("//a[@class='action showcart']"));
+        By carticon_ele=By.xpath("//a[@class='action showcart']");
+        WebElement element1= FUNS_wait.wait_For_visibilityOfElementLocated(carticon_ele);
+        element1.click();
 
 
         // Navigate to the cart

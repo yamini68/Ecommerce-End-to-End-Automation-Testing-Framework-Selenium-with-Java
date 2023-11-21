@@ -24,7 +24,7 @@ public class ProductsCheckout extends DriversExecution {
 
 
     @Test
-    public void Navigation_to_checkout_Page(){
+    public void Navigation_to_checkout_Page() throws InterruptedException {
 
         WebDriver driver=initializing_driver();
         ProductsCheckoutPom productsCheckoutPom=new ProductsCheckoutPom(driver);

@@ -27,7 +27,7 @@ public class AddProductsToCart extends DriversExecution {
     }
 
     @Test(priority = 2)
-    public void Add_Products_To_Cart(){
+    public void Add_Products_To_Cart() throws InterruptedException {
         WebDriver driver=initializing_driver();
         AddProductsToCartPom addProductsToCartPom=new AddProductsToCartPom(driver);
         addProductsToCartPom.DisplayOfProducts();
