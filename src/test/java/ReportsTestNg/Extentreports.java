@@ -10,7 +10,7 @@ public class Extentreports {
 
     public static ExtentReports getreportObject() {
 
-        String path = System.getProperty("user.dir") + "\\Reports\\testcase.html";
+        String path = System.getProperty("user.dir") + "\\Reports\\TestReport.html";
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         spark.config().setReportName("Web Automation Results");
         spark.config().setDocumentTitle("Test Results");

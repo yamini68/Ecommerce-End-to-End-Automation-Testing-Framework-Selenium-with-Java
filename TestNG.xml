@@ -8,12 +8,12 @@
     <test name="TetingEcommerceFunctionalites">
         <classes>
 
-
+            <class name="TestCases.AccountCreation"/>
             <class name="TestCases.LogIn"/>
-            <class name="TestCases.AddressPage"></class>
-            <class name="TestCases.AddProductsToWishList"></class>
-            <class name="TestCases.AddProductsToCart"></class>
-            <class name="TestCases.ProductsCheckout"></class>
+            <class name="TestCases.AddressPage"/>
+            <class name="TestCases.AddProductsToWishList"/>
+            <class name="TestCases.AddProductsToCart"/>
+            <class name="TestCases.ProductsCheckout"/>
 
 
 
