@@ -1,5 +1,6 @@
-package PageObjects;
+package DataProviders_ApachePoiAPI;
 
+import PageObjects.LogInPom;
 import Utilites.WebDriverWaitImplementation;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -12,14 +13,14 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddProductsToCartPom {
+public class DataproviderImplentation  {
 
     public WebDriver driver;
     public WebDriverWaitImplementation FUNS_wait;
     public String email = "littlemajesty684@gmail.com";
     public String password = "Test@123";
 
-    public AddProductsToCartPom(WebDriver rdriver) {
+    public DataproviderImplentation(WebDriver rdriver) {
         driver = rdriver;
         FUNS_wait = new WebDriverWaitImplementation(driver);
         PageFactory.initElements(rdriver, this);
@@ -94,7 +95,7 @@ public class AddProductsToCartPom {
 
 
 
-    public void addListOfProductsToCart() throws InterruptedException {
+    public void addListOfProductsToCart(List<String> productNames) throws InterruptedException {
         addProductsToCart(productNames);
     }
 
